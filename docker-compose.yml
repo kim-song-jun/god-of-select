@@ -1,0 +1,45 @@
+version: '1.0'
+
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+  web:
+    platform: linux/amd64
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile
+    image: god-of-select
+    volumes:
+      - .:/app
+      - app_data:/data
+    ports:
+      - 8080:8080
+    env_file:
+      - env/.env
+    depends_on:
+      - db
+      - redis
+      
+volumes:
+  postgres_data:
+  redis_data:
+  app_data:
