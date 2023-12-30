@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static  import static
+from god_of_select.views import health_check
 # from django.contrib.auth.models import User
 # from rest_framework import routers, serializers, viewsets
 
@@ -37,6 +38,7 @@ from django.conf.urls.static  import static
 
 urlpatterns = [
     # path('', include(router.urls)),
+    path('health/', health_check, name='health_check'),
     path('user/', include('user.urls')),
     path('user_ddk/', include('user_ddk.urls')),
     path('issue/', include('issue.urls')),
