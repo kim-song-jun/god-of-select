@@ -29,8 +29,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'localhost'
+    # '0.0.0.0',
+    # 'localhost'
+    '*'
 ]
 
 REDIS_URL = 'redis://redis:6379'
@@ -66,6 +67,11 @@ INSTALLED_APPS = [
     # django-rest-framework
     #
     'rest_framework',
+
+    #
+    # cors headers
+    #
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -76,6 +82,8 @@ REST_FRAMEWORK = {
     ]
 }
 
+CORS_ALLOWED_ORIGINS = ["*"]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,6 +93,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    #
+    # cors headers
+    #
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'god_of_select.urls'
